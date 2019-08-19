@@ -27,7 +27,9 @@ node { lock('master') {
 
 
       // compile App
-      sh "xcodebuild clean"
+      dir('Jenkins-Testing') {
+        sh "xcodebuild clean"
+      }
     }
   }
 
