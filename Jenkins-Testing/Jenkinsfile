@@ -25,6 +25,10 @@ node { lock('master') {
         sh 'echo "" >> ReleaseNotes.txt'
       }
 
+      checkout([$class: 'GitSCM', branches: [[name: 'master']],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'Jenkins-Testing']], submoduleCfg: [],
+        userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
 
       // compile App
       dir('Jenkins-Testing') {
