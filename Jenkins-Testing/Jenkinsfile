@@ -1,0 +1,50 @@
+node { lock('master') {
+
+  BRANCH_TO_BUILD = "master"
+  WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
+  BRANCH_DIR = "master"
+
+  echo "===== after setting branch dir"
+  sh 'pwd; ls -al'
+
+  WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
+  echo " --- branch to build: ${BRANCH_TO_BUILD}"
+  echo " --- workspace_dir: ${WORKSPACE_DIR}"
+
+  stage('build') {
+    dir(WORKSPACE_DIR) {
+      deleteDir()
+    }
+
+    dir(WORKSPACE_DIR) {
+
+      // TODO: release notes from user
+      // build output directory for App
+      dir('buildOutput') {
+        sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
+        sh 'echo "" >> ReleaseNotes.txt'
+      }
+
+
+      // compile App
+      sh "xcodebuild clean"
+    }
+  }
+
+  stage('test') {
+    dir(WORKSPACE_DIR) {
+    }
+  }
+
+  stage('deploy') {
+    dir(WORKSPACE_DIR) {
+        // TODO: deployment code
+    }
+  }
+
+  stage('cleanup') {
+    dir(WORKSPACE_DIR) {
+      deleteDir()
+    }
+  }
+}}

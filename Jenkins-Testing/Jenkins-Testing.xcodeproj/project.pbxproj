@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13ACBD7E9BAF6C0152321834 /* Jenkinsfile in Resources */ = {isa = PBXBuildFile; fileRef = 13ACB981490241261499D524 /* Jenkinsfile */; };
 		62E70F46230AB53400E9D4F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E70F45230AB53400E9D4F7 /* AppDelegate.swift */; };
 		62E70F48230AB53400E9D4F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E70F47230AB53400E9D4F7 /* ViewController.swift */; };
 		62E70F4B230AB53400E9D4F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62E70F49230AB53400E9D4F7 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13ACB981490241261499D524 /* Jenkinsfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Jenkinsfile; sourceTree = "<group>"; };
 		62E70F42230AB53400E9D4F7 /* Jenkins-Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jenkins-Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62E70F45230AB53400E9D4F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62E70F47230AB53400E9D4F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +42,7 @@
 			children = (
 				62E70F44230AB53400E9D4F7 /* Jenkins-Testing */,
 				62E70F43230AB53400E9D4F7 /* Products */,
+				13ACB981490241261499D524 /* Jenkinsfile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +128,7 @@
 				62E70F50230AB53600E9D4F7 /* LaunchScreen.storyboard in Resources */,
 				62E70F4D230AB53600E9D4F7 /* Assets.xcassets in Resources */,
 				62E70F4B230AB53400E9D4F7 /* Main.storyboard in Resources */,
+				13ACBD7E9BAF6C0152321834 /* Jenkinsfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
