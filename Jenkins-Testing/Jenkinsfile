@@ -27,12 +27,11 @@ node { lock('master') {
 
       checkout([$class: 'GitSCM', branches: [[name: 'master']],
         doGenerateSubmoduleConfigurations: false,
-        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'Jenkins-Testing']], submoduleCfg: [],
+        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
         userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
 
       // compile App
-      dir('Jenkins-Testing') {
-        sh 'cd Jenkins-Testing'
+      dir('project/Jenkins-Testing') {
         sh 'ls -las'
         sh "xcodebuild clean"
       }
