@@ -77,6 +77,7 @@
 				62E70F3E230AB53400E9D4F7 /* Sources */,
 				62E70F3F230AB53400E9D4F7 /* Frameworks */,
 				62E70F40230AB53400E9D4F7 /* Resources */,
+				62387187230BBA700036A8AA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -133,6 +134,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		62387187230BBA700036A8AA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "security list-keychains\n# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		62E70F3E230AB53400E9D4F7 /* Sources */ = {
