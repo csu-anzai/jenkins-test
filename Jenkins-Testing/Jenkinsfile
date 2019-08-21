@@ -41,7 +41,9 @@ node { lock('master') {
 
   stage('test') {
     dir(WORKSPACE_DIR) {
-    sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build/ -destination "platform=iOS Simulator,os=12.4,name=iPhone 8" test || true'
+        dir('project/Jenkins-Testing') {
+              sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build/ -destination "platform=iOS Simulator,os=12.4,name=iPhone 8" test || true'
+        }
     }
   }
 
