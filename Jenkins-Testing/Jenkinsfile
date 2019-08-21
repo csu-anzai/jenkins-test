@@ -34,13 +34,7 @@ node { lock('master') {
       dir('project/Jenkins-Testing') {
         sh 'ls -las'
         sh "xcodebuild clean"
-        sh 'echo ${WORKSPACE}'
-        echo "${BRANCH_DIR}"
-        PATH = "${WORKSPACE_DIR}"
-        PATH2 = "master2"
-        sh 'echo ${PATH}'
-        sh 'echo ${PATH2}'
-        sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ${WORKSPACE_DIR}/version.txt', returnStdout: false)
+        sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ./version.txt', returnStdout: false)
       }
     }
   }
