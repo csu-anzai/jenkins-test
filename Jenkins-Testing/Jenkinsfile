@@ -37,7 +37,9 @@ node { lock('master') {
         sh 'echo ${WORKSPACE}'
         echo "${BRANCH_DIR}"
         PATH = "${WORKSPACE_DIR}"
-        sh 'echo $PATH'
+        PATH2 = "master2"
+        sh 'echo ${PATH}'
+        sh 'echo ${PATH2}'
         sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ${WORKSPACE_DIR}/version.txt', returnStdout: false)
       }
     }
