@@ -36,8 +36,7 @@ node { lock('master') {
 //         sh "xcodebuild clean"
 //         sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ./version.txt', returnStdout: false)
         def data = readFile 'Jenkins-Testing/Info.plist'
-        mail bcc: '', attachment: 'Jenkins-Testing/Info.plist', body: data, cc: '', charset: 'UTF-8', from: 'ios-build-machine', mimeType: 'text/html', replyTo: 'amresh.amr@gmail.com', subject: 'Test Report from Script', to: 'amresh.amr@gmail.com'
-
+        emailext attachmentsPattern: 'Jenkins-Testing/Info.plist', body: 'email subject', subject: 'email subject', to: 'amresh.amr@gmail.com'
       }
     }
   }
