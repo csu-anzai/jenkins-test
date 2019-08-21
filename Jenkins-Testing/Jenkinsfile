@@ -35,19 +35,13 @@ node { lock('master') {
         sh 'ls -las'
         sh "xcodebuild clean"
         sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ./version.txt', returnStdout: false)
-        mail bcc: '', body: '''<html>
-        <body>
-        <strong>
-        Test mail from script
-        </strong>
-        </body>
-        </html>''', cc: '', charset: 'UTF-8', from: 'ios-build-machine', mimeType: 'text/html', replyTo: 'amresh.amr@gmail.com', subject: 'Test Report from Script', to: 'amresh.amr@gmail.com'
       }
     }
   }
 
   stage('test') {
     dir(WORKSPACE_DIR) {
+    sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build/ -destination "platform=iOS Simulator" test || true'
     }
   }
 
