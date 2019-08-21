@@ -36,7 +36,8 @@ node { lock('master') {
         sh "xcodebuild clean"
         sh 'echo ${WORKSPACE}'
         echo "${BRANCH_DIR}"
-        echo "${WORKSPACE_DIR}"
+        PATH = "${WORKSPACE_DIR}"
+        sh 'echo PATH'
         sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ${WORKSPACE_DIR}/version.txt', returnStdout: false)
       }
     }
