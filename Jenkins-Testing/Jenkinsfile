@@ -11,33 +11,31 @@ node { lock('master') {
   echo " --- branch to build: ${BRANCH_TO_BUILD}"
   echo " --- workspace_dir: ${WORKSPACE_DIR}"
 
+  stage('startup') {
+    dir(WORKSPACE_DIR) {
+        deleteDir()
+    }
+    dir('buildOutput') {
+       sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
+       sh 'echo "" >> ReleaseNotes.txt'
+    }
+
+     checkout([$class: 'GitSCM', branches: [[name: 'master']],
+               doGenerateSubmoduleConfigurations: false,
+               extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
+               userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
+  }
+
   parallel build: {
    stage('build') {
        dir(WORKSPACE_DIR) {
-         deleteDir()
-       }
-
-       dir(WORKSPACE_DIR) {
-
-         // TODO: release notes from user
-         // build output directory for App
-         dir('buildOutput') {
-           sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
-           sh 'echo "" >> ReleaseNotes.txt'
-         }
-
-         checkout([$class: 'GitSCM', branches: [[name: 'master']],
-           doGenerateSubmoduleConfigurations: false,
-           extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
-           userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
 
          // compile App
          dir('project/Jenkins-Testing') {
            sh 'ls -las'
-   //         sh "xcodebuild clean"
-   //         sh(script:'/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Jenkins-Testing/Info.plist" > ./version.txt', returnStdout: false)
+           sh "xcodebuild clean"
            def data = readFile 'Jenkins-Testing/Info.plist'
-           emailext attachmentsPattern: 'Jenkins-Testing/Info.plist', body: 'email subject', mimeType: 'text/html', replyTo: 'reply-t0-address', subject: 'email subject', to: 'amresh.amr@gmail.com'
+           echo data
          }
        }
      }
@@ -57,7 +55,6 @@ node { lock('master') {
 
   stage('deploy') {
     dir(WORKSPACE_DIR) {
-        // TODO: deployment code
     }
   }
 
