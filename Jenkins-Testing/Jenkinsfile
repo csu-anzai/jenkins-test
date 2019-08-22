@@ -14,22 +14,21 @@ node { lock('master') {
   stage('startup') {
     dir(WORKSPACE_DIR) {
         deleteDir()
-    }
-    dir('buildOutput') {
-       sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
-       sh 'echo "" >> ReleaseNotes.txt'
-    }
+        dir('buildOutput') {
+           sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
+           sh 'echo "" >> ReleaseNotes.txt'
+        }
 
-     checkout([$class: 'GitSCM', branches: [[name: 'master']],
-               doGenerateSubmoduleConfigurations: false,
-               extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
-               userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: 'master']],
+                 doGenerateSubmoduleConfigurations: false,
+                 extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
+                 userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
+    }
   }
 
   parallel build: {
    stage('build') {
        dir(WORKSPACE_DIR) {
-
          // compile App
          dir('project/Jenkins-Testing') {
            sh 'ls -las'
