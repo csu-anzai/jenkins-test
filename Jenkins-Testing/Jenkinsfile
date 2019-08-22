@@ -32,7 +32,7 @@ node { lock('master') {
          // compile App
          dir('project/Jenkins-Testing') {
            sh 'ls -las'
-           sh "xcodebuild clean"
+           sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build/ -destination "platform=iOS Simulator,name=iPhone 8"'
            def data = readFile 'Jenkins-Testing/Info.plist'
            echo data
          }
