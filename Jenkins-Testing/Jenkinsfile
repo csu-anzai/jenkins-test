@@ -43,9 +43,10 @@ node { lock('master') {
      stage('test') {
          dir(WORKSPACE_DIR) {
              dir('project/Jenkins-Testing') {
-                   sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Test/ -destination "platform=iOS Simulator,name=iPhone 8" test SYMROOT=./test-build || true'
+                   sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Test/ -destination "platform=iOS Simulator,name=iPhone 8" test || true'
                    echo currentBuild.result
-                   junit './test-build/test-reports/*.xml'
+                   sh 'ls -las'
+                   junit './test-reports/*.xml'
              }
          }
        }
