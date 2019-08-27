@@ -43,10 +43,8 @@ node { lock('master') {
      stage('test') {
          dir(WORKSPACE_DIR) {
              dir('project/Jenkins-Testing') {
-                   sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Test/ -destination "platform=iOS Simulator,name=iPhone 8" test || true'
+                   sh 'xcodebuild -scheme "Jenkins-Testing" -destination "platform=iOS Simulator,name=iPhone 8" test | xcpretty -r junit '
                    echo currentBuild.result
-                   sh 'ls -las Build-Test/TestResults'
-                   junit './test-reports/*.xml'
              }
          }
        }
