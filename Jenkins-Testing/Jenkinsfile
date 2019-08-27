@@ -26,8 +26,8 @@ node { lock('master') {
     }
   }
 
-stage('build') {
-  parallel build: {
+  parallel {
+     stage('build') {
        dir(WORKSPACE_DIR) {
          // compile App
          dir('project/Jenkins-Testing') {
@@ -37,17 +37,16 @@ stage('build') {
            echo data
          }
        }
-     }, test: {
-          stage('test') {
-              dir(WORKSPACE_DIR) {
-                  dir('project/Jenkins-Testing') {
-                        sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Test/ -destination "platform=iOS Simulator,name=iPhone 8" test SYMROOT=./test-build || true'
-                        echo currentBuild.result
-                  }
-              }
-            }
-       }
-}
+     }
+     stage('test') {
+         dir(WORKSPACE_DIR) {
+             dir('project/Jenkins-Testing') {
+                   sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Test/ -destination "platform=iOS Simulator,name=iPhone 8" test SYMROOT=./test-build || true'
+                   echo currentBuild.result
+             }
+         }
+      }
+  }
 
 
 
