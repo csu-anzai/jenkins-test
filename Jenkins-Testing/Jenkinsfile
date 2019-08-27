@@ -26,8 +26,8 @@ node { lock('master') {
     }
   }
 
-  parallel {
-     stage('build') {
+  parallel build: {
+   stage('build') {
        dir(WORKSPACE_DIR) {
          // compile App
          dir('project/Jenkins-Testing') {
@@ -38,6 +38,8 @@ node { lock('master') {
          }
        }
      }
+
+  }, test: {
      stage('test') {
          dir(WORKSPACE_DIR) {
              dir('project/Jenkins-Testing') {
@@ -45,8 +47,9 @@ node { lock('master') {
                    echo currentBuild.result
              }
          }
-      }
-  }
+       }
+  },
+  failFast: true
 
 
 
