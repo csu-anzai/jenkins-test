@@ -7,7 +7,7 @@ pipeline {
         BRANCH_TO_BUILD = "master"
         WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
         BRANCH_DIR = "master"
-        WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
+        WORKSPACE_DIR = ""//"${WORKSPACE}/${BRANCH_DIR}"
     }
 
     stages {
