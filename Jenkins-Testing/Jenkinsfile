@@ -6,7 +6,7 @@ pipeline {
       }
     environment {
         BRANCH_TO_BUILD = "${env.BRANCH_NAME}"
-        WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
+//         WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
         BRANCH_DIR = "${env.BRANCH_NAME}"
         WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
     }
