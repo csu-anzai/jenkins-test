@@ -1,7 +1,8 @@
-pipeline {
+pipeline { lock('master') {
     agent none
     stages {
-        stage('Run Tests') {
+        stage('Startup') {
+
             parallel {
                 stage('Windows') {
                     steps {
@@ -26,4 +27,72 @@ pipeline {
             }
         }
     }
+    }
 }
+
+// node { lock('master') {
+//
+//   BRANCH_TO_BUILD = "master"
+//   WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
+//   BRANCH_DIR = "master"
+//
+//   echo "===== after setting branch dir"
+//   sh 'pwd; ls -al'
+//
+//   WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
+//   echo " --- branch to build: ${BRANCH_TO_BUILD}"
+//   echo " --- workspace_dir: ${WORKSPACE_DIR}"
+//
+//   stage('startup') {
+//     dir(WORKSPACE_DIR) {
+//         deleteDir()
+//         dir('buildOutput') {
+//            sh 'echo ${BRANCH_TO_BUILD} > ReleaseNotes.txt'
+//            sh 'echo "" >> ReleaseNotes.txt'
+//         }
+//
+//         checkout([$class: 'GitSCM', branches: [[name: 'master']],
+//                  doGenerateSubmoduleConfigurations: false,
+//                  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'project']], submoduleCfg: [],
+//                  userRemoteConfigs: [[url: 'https://github.com/amreshkumar/jenkins-test.git']]])
+//     }
+//   }
+//
+//   parallel build: {
+//    stage('build') {
+//        dir(WORKSPACE_DIR) {
+//          // compile App
+//          dir('project/Jenkins-Testing') {
+//            sh 'ls -las'
+//            sh 'xcodebuild -scheme "Jenkins-Testing" -derivedDataPath Build-Archive/ -destination "platform=iOS Simulator,name=iPhone 8"'
+//            def data = readFile 'Jenkins-Testing/Info.plist'
+//            echo data
+//          }
+//        }
+//      }
+//
+//   }, test: {
+//      stage('test') {
+//          dir(WORKSPACE_DIR) {
+//              dir('project/Jenkins-Testing') {
+//                    sh 'xcodebuild -scheme "Jenkins-Testing" -destination "platform=iOS Simulator,name=iPhone Xʀ" test -only-testing:"Jenkins-TestingUITests/Jenkins_TestingUITests/testExample"'
+//              }
+//          }
+//        }
+//   },
+//   failFast: true
+//
+//
+//
+//
+//   stage('deploy') {
+//     dir(WORKSPACE_DIR) {
+//     }
+//   }
+//
+//   stage('cleanup') {
+//     dir(WORKSPACE_DIR) {
+//       deleteDir()
+//     }
+//   }
+// }}
