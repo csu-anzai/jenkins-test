@@ -1,5 +1,13 @@
 pipeline { lock('master') {
     agent none
+     BRANCH_TO_BUILD = "master"
+     WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
+     BRANCH_DIR = "master"
+     echo "===== after setting branch dir"
+     sh 'pwd; ls -al'
+     WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
+     echo " --- branch to build: ${BRANCH_TO_BUILD}"
+     echo " --- workspace_dir: ${WORKSPACE_DIR}"
     stages {
         stage('Startup') {
 
@@ -39,9 +47,6 @@ pipeline { lock('master') {
 //   echo "===== after setting branch dir"
 //   sh 'pwd; ls -al'
 //
-//   WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
-//   echo " --- branch to build: ${BRANCH_TO_BUILD}"
-//   echo " --- workspace_dir: ${WORKSPACE_DIR}"
 //
 //   stage('startup') {
 //     dir(WORKSPACE_DIR) {
