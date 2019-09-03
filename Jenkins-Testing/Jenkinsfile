@@ -15,7 +15,7 @@ pipeline {
                     steps {
                         echo "${env.WORKSPACE}"
                         echo "run-tests-windows"
-                        echo " --- branch to build: ${env.BRANCH_NAME}}"
+                        echo " --- branch to build: ${BRANCH_TO_BUILD}}"
                         echo " --- workspace_dir: ${WORKSPACE_DIR}"
                     }
                     post {
