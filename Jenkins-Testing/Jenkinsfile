@@ -1,10 +1,13 @@
 pipeline {
-    agent any
+    agent none
     options {
         lock('master')
       }
     environment {
-        WORKSPACE_DIR = "${env.WORKSPACE}/${env.BRANCH_NAME}"
+        BRANCH_TO_BUILD = "master"
+        WORKSPACE = """${sh(returnStdout: true, script: 'pwd').trim()}"""
+        BRANCH_DIR = "master"
+        WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
     }
 
     stages {
@@ -13,9 +16,8 @@ pipeline {
             parallel {
                 stage('Windows') {
                     steps {
-                        echo "${env.WORKSPACE}"
                         echo "run-tests-windows"
-                        echo " --- branch to build: ${BRANCH_TO_BUILD}}"
+                        echo " --- branch to build: ${BRANCH_TO_BUILD}"
                         echo " --- workspace_dir: ${WORKSPACE_DIR}"
                     }
                     post {
