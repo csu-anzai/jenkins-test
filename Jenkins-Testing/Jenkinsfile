@@ -4,9 +4,7 @@ pipeline {
         lock('master')
       }
     environment {
-        BRANCH_TO_BUILD = "${env.BRANCH_NAME}"
-        BRANCH_DIR = "${env.BRANCH_NAME}"
-        WORKSPACE_DIR = "${WORKSPACE}/${BRANCH_DIR}"
+        WORKSPACE_DIR = "${env.WORKSPACE}/${env.BRANCH_NAME}"
     }
 
     stages {
@@ -16,9 +14,8 @@ pipeline {
                 stage('Windows') {
                     steps {
                         echo "${env.WORKSPACE}"
-                        echo "${WORKSPACE}"
                         echo "run-tests-windows"
-                        echo " --- branch to build: ${BRANCH_TO_BUILD}"
+                        echo " --- branch to build: ${env.BRANCH_NAME}}"
                         echo " --- workspace_dir: ${WORKSPACE_DIR}"
                     }
                     post {
